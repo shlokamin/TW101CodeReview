@@ -1,4 +1,5 @@
 package com.thoughtworks.tw101.exercises.exercise6;
+import java.util.ArrayList;
 
 // Exercise #6: Create Orc and Troll classes that implement a Monster interface with takeDamage(int amount),
 // reportStatus methods. Create instances of both classes and store them in an ArrayList.
@@ -10,6 +11,21 @@ package com.thoughtworks.tw101.exercises.exercise6;
 
 public class Main {
     public static void main(String[] args) {
+        // Creating ArrayList of monsters and adding an orc and troll
+        ArrayList<Monster> monsters = new ArrayList<Monster>();
+        monsters.add(new Orc());
+        monsters.add(new Troll());
+
+        // Damaging all the monsters by 10 points
+        for (Monster m : monsters) {
+            m.takeDamage(10);
+        }
+
+        // Reporting the status of all monsters
+        for (Monster m: monsters) {
+            m.reportStatus();
+        }
+
 
     }
 }
