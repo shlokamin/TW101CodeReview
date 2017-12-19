@@ -7,6 +7,13 @@ package com.thoughtworks.tw101.exercises.exercise7;
 public class Main {
 
     public static void main(String[] args) {
+        RandomNum num = new RandomNum(1, 100);
+        GuessNumber game = new GuessNumber(num.getNumber());
+
+        while(game.getKeepPlaying()) {
+            game.getGuess();
+            game.checkNumber();
+        }
 
     }
 }
