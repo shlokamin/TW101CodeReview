@@ -1,5 +1,6 @@
 package com.thoughtworks.tw101.exercises.exercise9;
 
+import javax.swing.plaf.synth.SynthTextAreaUI;
 import java.util.List;
 
 // Exercise #9: Create a class Node that implements a binary tree for Strings. It should have an add(String name) method
@@ -20,8 +21,10 @@ public class Main {
 
         List<String> names = root.names();
 
+
         for (String name : names) {
             System.out.println(name);
         }
+
     }
 }
