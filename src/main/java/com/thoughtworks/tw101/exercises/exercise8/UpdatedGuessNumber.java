@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class UpdatedGuessNumber {
     private int actualNum;
     private int userGuess;
-    private boolean keepPlaying = true;
+    private boolean gameOver = false;
     private Scanner reader = new Scanner(System.in);
     private ArrayList<Integer> guesses = new ArrayList<Integer>();
 
@@ -15,12 +15,11 @@ public class UpdatedGuessNumber {
         actualNum = num;
     }
 
-    public boolean getKeepPlaying() {
-        return keepPlaying;
+    public boolean isOver() {
+        return gameOver;
     }
 
     public void getGuess() {
-        // This function gets the user input and type-checks it.
         while(true) {
             try {
                 System.out.printf("Please enter a number: ");
@@ -34,18 +33,9 @@ public class UpdatedGuessNumber {
     }
 
     public void checkNumber() {
-        // This function checks to see if the user guessed the right number
         if (userGuess == actualNum) {
             System.out.printf("You win! The correct number was %d.%n", actualNum);
-            keepPlaying = false;
-            reader.close();
-
-            String allGuesses = "";
-            for (int guess : guesses) {
-                allGuesses += guess + " ";
-            }
-
-            System.out.printf("All your guesses: %s%n", allGuesses);
+            endGame();
         }
         else if (userGuess < actualNum) {
             System.out.printf("The number you guessed (%d) is too low.%n%n", userGuess);
@@ -53,5 +43,18 @@ public class UpdatedGuessNumber {
         else {
             System.out.printf("The number you guessed (%d) is too high.%n%n", userGuess);
         }
+    }
+
+    public void endGame() {
+        gameOver = true;
+        reader.close();
+        printGuesses();
+    }
+    public void printGuesses() {
+        String allGuesses = "";
+        for (int guess : guesses) {
+            allGuesses += guess + " ";
+        }
+        System.out.printf("All your guesses: %s%n", allGuesses);
     }
 }

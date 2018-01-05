@@ -4,11 +4,10 @@ public class DiamondExercises {
     public static void main(String[] args) {
         drawAnIsoscelesTriangle(3);
         drawADiamond(8);
-        drawADiamondWithYourName(3);
+        drawADiamondWithYourName(5);
     }
 
-    private static String addPart(int numSpaces, String symbol) {
-        // This function adds the appropriate number of spaces or asterisks to the string.
+    private static String addSymbol(int numSpaces, String symbol) {
         String spaces = "";
 
         for (int i = 0; i < numSpaces; i++) {
@@ -17,41 +16,29 @@ public class DiamondExercises {
 
         return spaces;
     }
-
     private static String makeLine(int numSpaces, int numStars) {
-        // This function draws one line.
         String str = "";
 
-        str += addPart(numSpaces, " ");
-        str += addPart(numStars, "*");
-        str += addPart(numSpaces, " ");
+        str += addSymbol(numSpaces, " ");
+        str += addSymbol(numStars, "*");
+        str += addSymbol(numSpaces, " ");
 
         return str;
     }
 
-//    Isosceles Triangle
+    //    Isosceles Triangle
 //    Given a number n, print a centered triangle. Example for n=3:
 //              *
 //             ***
 //            *****
     private static void drawAnIsoscelesTriangle(int n) {
-        // the total number of spaces is the current odd number (2n-1)
-        int numSpaces = 2 * n - 1;
-
-        for (int i = 1; i < n + 1; i++) {
-            int currOdd = 2 * i - 1;
-            int sideSpaces = (numSpaces - currOdd) / 2;
-            String triangle = "";
-
-            triangle += makeLine(sideSpaces, currOdd);
-
-            System.out.println(triangle);
-
+        String[] triangle = getIsoscelesTriangle(n);
+        for (String row: triangle) {
+            System.out.println(row);
         }
-
     }
 
-//    Diamond
+    //    Diamond
 //    Given a number n, print a centered diamond. Example for n=3:
 //              *
 //             ***
@@ -59,23 +46,18 @@ public class DiamondExercises {
 //             ***
 //              *
     private static void drawADiamond(int n) {
-        drawAnIsoscelesTriangle(n); // prints top half of diamond
 
-        int numSpaces = 2 * n - 1;
+        String[] triangle = getIsoscelesTriangle(n);
 
-        for (int i = n - 1; i > -1; i--) {
-            int currOdd = 2 * i - 1;
-            int sideSpaces = (numSpaces - currOdd) / 2;
-            String triangle = "";
-
-            triangle += makeLine(sideSpaces, currOdd);
-
-            System.out.println(triangle);
-
+        for (int i = 0; i <triangle.length ; i++) {
+            System.out.println(triangle[i]);
+        }
+        for (int i = (triangle.length) - 2; i>=0; i--) {
+            System.out.println(triangle[i]);
         }
     }
 
-//    Diamond with Name
+    //    Diamond with Name
 //    Given a number n, print a centered diamond with your name in place of the middle line. Example for n=3:
 //
 //             *
@@ -84,39 +66,41 @@ public class DiamondExercises {
 //            ***
 //             *
     private static void drawADiamondWithYourName(int n) {
-        int numSpaces = 2 * n - 1;
 
-        // prints top half of diamond
-        for (int i = 1; i < n; i++) {
-            int currOdd = 2 * i - 1;
-            int sideSpaces = (numSpaces - currOdd) / 2;
-            String triangle = "";
+        String[] triangle = getIsoscelesTriangle(n-1);
 
-            triangle += makeLine(sideSpaces, currOdd);
-
-            System.out.println(triangle);
+        for (int i = 0; i <triangle.length ; i++) {
+            System.out.println(triangle[i]);
         }
 
-        // prints name
-        int sideSpaces = (numSpaces - "Emily".length()) / 2;
-        String name = "";
+        printNameWithSpaces("Emily",n);
 
-        name += addPart(sideSpaces, " ");
-        name += "Emily";
-        name += addPart(sideSpaces, " ");
-
-        System.out.println(name);
-
-        // prints bottom of diamond
-        for (int i = n - 1; i > -1; i--) {
-            int currOdd = 2 * i - 1;
-            sideSpaces = (numSpaces - currOdd) / 2;
-            String triangle = "";
-
-            triangle += makeLine(sideSpaces, currOdd);
-
-            System.out.println(triangle);
-
+        for (int i = (triangle.length) - 1; i>=0; i--) {
+            System.out.println(triangle[i]);
         }
+
+    }
+
+    private static String[] getIsoscelesTriangle(int height) {
+        String[] triangle = new String[height];
+        for (int i = 0; i < height ; i++) {
+            int currOdd = 2 * i + 1;
+            int sideSpaces = ((2 * height - 1) - currOdd) / 2;
+            String currLine = "";
+            currLine += makeLine(sideSpaces, currOdd);
+            triangle[i] = currLine;
+        }
+        return triangle;
+    }
+
+
+    private static void printNameWithSpaces(String name, int n) {
+        int sideSpaces = ((2 * n - 1) - name.length() - 1) / 2;
+        String res = "";
+        res += addSymbol(sideSpaces, " ");
+        res += name;
+        res += addSymbol(sideSpaces, " ");
+        System.out.println(res);
+
     }
 }

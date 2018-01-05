@@ -12,7 +12,7 @@ public class Main {
         RandomNum num = new RandomNum(1, 100);
         UpdatedGuessNumber game = new UpdatedGuessNumber(num.getNumber());
 
-        while(game.getKeepPlaying()) {
+        while(!game.isOver()) {
             game.getGuess();
             game.checkNumber();
         }
